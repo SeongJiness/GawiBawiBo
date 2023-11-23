@@ -34,7 +34,7 @@
         6. 끝내기 버튼을 누르면 게임을 종료할 수 있습니다.
        "
         android:layout_marginBottom="50dp"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:layout_gravity="center"
         android:textColor="@color/sky"
         />
