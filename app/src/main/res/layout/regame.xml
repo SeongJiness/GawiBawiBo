@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    android:gravity="center"
+    >
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="다시 플레이 하시겠습니까?"
+        android:textSize="35sp"
+        android:gravity="center"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/sky"
+        />
+
+
+
+
+    <android.widget.Button
+        android:id="@+id/regame"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:text="다시하기"
+        android:textSize="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"
+        android:background="@color/blue"
+        />
+
+    <android.widget.Button
+        android:id="@+id/winning_rate"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:text="누적전적"
+        android:textSize="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"
+        android:background="@color/blue"
+        />
+
+
+        <android.widget.Button
+            android:id="@+id/end"
+            android:layout_width="160dp"
+            android:layout_height="70dp"
+            android:text="끝내기"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            android:background="@color/red"
+            />
+
+</LinearLayout>

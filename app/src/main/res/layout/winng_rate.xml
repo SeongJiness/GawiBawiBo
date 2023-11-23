@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".WinngRate">
+
+    <TextView
+        android:id="@+id/rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="누적전적"
+        android:textSize="45sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/sky"
+        />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0전 0승0무0패"
+        android:textSize="40sp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"
+        android:textColor="@color/red"
+        />
+
+    <TextView
+        android:id="@+id/winning_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="승률은 50%입니다."
+        android:layout_gravity="center"
+        android:textSize="25sp"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
+        />
+
+    <android.widget.Button
+        android:id="@+id/back_btn"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:text="돌아가기"
+        android:textSize="30dp"
+        android:background="@color/blue"
+        />
+
+
+</LinearLayout>

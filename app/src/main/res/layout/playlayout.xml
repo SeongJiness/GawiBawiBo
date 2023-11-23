@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="가위바위보 중에 하나를 선택하세요."
+        android:textSize="22sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/sky"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/vs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="30sp"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        >
+
+
+
+        <ImageView
+            android:layout_marginLeft="38dp"
+            android:id="@+id/player_play"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/computer_play"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="50dp"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VS"
+        android:textSize="40sp"
+        android:layout_gravity="center"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/player"
+            android:textSize="40sp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/computer"
+            android:textSize="40sp"
+            android:layout_marginLeft="60dp"
+            android:textColor="#673AB7"
+            android:textStyle="bold"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        >
+        <ImageButton
+            android:id="@+id/gawi"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:text="@string/gawi"
+            android:background="@color/green"
+            android:src="@drawable/gawi"
+            android:padding="0sp"
+            android:scaleType="fitCenter"
+            />
+
+        <ImageButton
+            android:id="@+id/bawi"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:text="@string/bawi"
+            android:background="@color/green"
+            android:src="@drawable/bawi"
+            android:padding="0sp"
+            android:scaleType="fitCenter"
+            />
+
+        <ImageButton
+            android:id="@+id/bo"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="@string/bo"
+            android:background="@color/green"
+            android:src="@drawable/bo"
+            android:padding="0sp"
+            android:scaleType="fitCenter"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
