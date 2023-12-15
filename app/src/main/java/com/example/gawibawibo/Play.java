@@ -1,13 +1,18 @@
 package com.example.gawibawibo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,10 +37,10 @@ public class Play extends AppCompatActivity {
     private static final int DELAY_MILLISECONDS = 1500;
     private static final int COMPUTER_INTERVAL = 100;
 
-    MediaPlayer mMediaPlayer;
-    boolean isMusicPlaying = false;
 
     SharedPreferences preferences;
+
+    MediaPlayer mMediaPlayer;
 
     Handler computerHandler;
     Runnable computerRunnable;
@@ -48,19 +53,13 @@ public class Play extends AppCompatActivity {
         setContentView(R.layout.playlayout);
 
         preferences = getSharedPreferences("WinningRate_file", MODE_PRIVATE);
+        playerWin = preferences.getInt("playerWin",0);
+        playerLose = preferences.getInt("playerLose" , 0);
+        draw = preferences.getInt("draw" , 0);
+        match = preferences.getInt("match" , 0);
+
         saveDataToPreferences();
 
-        if (!isMusicPlaying) {
-            mMediaPlayer = MediaPlayer.create(Play.this, R.raw.play);
-            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mMediaPlayer.start();
-                }
-            });
-            mMediaPlayer.start();
-            isMusicPlaying = true;
-        }
 
         playerName = findViewById(R.id.name);
         gawi = findViewById(R.id.gawi);
@@ -127,6 +126,119 @@ public class Play extends AppCompatActivity {
         });
 
         startComputerImageUpdateLoop();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        updateAudioIcon(menu.findItem(R.id.audio));
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int curId = item.getItemId();
+        if (curId == R.id.audio) {
+            MediaPlayer mMediaPlayer = ((MyApplication) getApplication()).getMediaPlayer();
+            if (mMediaPlayer.isPlaying()) {
+                item.setIcon(R.drawable.audiooff);
+                mMediaPlayer.pause();
+            } else {
+                item.setIcon(R.drawable.audio);
+                mMediaPlayer.start();
+            }
+        }
+
+        if (curId == R.id.shutdown) {
+            showExitDialog();
+        }
+
+        if(curId == R.id.reset) {
+            showResetConfirmationDialog();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void updateAudioIcon(MenuItem audioMenuItem) {
+        if (audioMenuItem != null) {
+            MediaPlayer mMediaPlayer = ((MyApplication) getApplication()).getMediaPlayer();
+            if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+                audioMenuItem.setIcon(R.drawable.audio);
+            } else {
+                audioMenuItem.setIcon(R.drawable.audiooff);
+            }
+        }
+    }
+
+    private void showResetConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("전적을 초기화하시겠습니까?");
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        resetStatistics();
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+        builder.setNegativeButton(
+                "취소",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void resetStatistics() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("playerWin", 0);
+        editor.putInt("draw", 0);
+        editor.putInt("playerLose", 0);
+        editor.putInt("match", 0);
+        editor.commit();
+    }
+
+    private void saveDataToSharedPreferences() {
+        preferences.edit().commit();
+    }
+
+    private void showExitDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("앱을 완전히 종료하시겠습니까?");
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        saveDataToSharedPreferences();
+                        finishAffinity();
+                    }
+                }
+        );
+
+        builder.setNegativeButton(
+                "취소",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void startComputerImageUpdateLoop() {
@@ -223,20 +335,11 @@ public class Play extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if (isMusicPlaying) {
-            mMediaPlayer.stop();
-            mMediaPlayer.release();
-        }
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        super.onBackPressed();
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        invalidateOptionsMenu();
         loadAndSetPlayerName();
         saveDataToPreferences();
     }
@@ -246,13 +349,12 @@ public class Play extends AppCompatActivity {
     }
 
     public void saveDataToPreferences() {
-        Log.d("SaveData", "Saving data to preferences");
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("playerWin", playerWin);
         editor.putInt("draw", draw);
         editor.putInt("playerLose", playerLose);
         editor.putInt("match", match);
-        editor.apply();
+        editor.commit();
     }
 
     @Override
@@ -274,11 +376,12 @@ public class Play extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mMediaPlayer != null) {
+    public void onDestroy() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
             mMediaPlayer.release();
             mMediaPlayer = null;
         }
+        super.onDestroy();
     }
 }

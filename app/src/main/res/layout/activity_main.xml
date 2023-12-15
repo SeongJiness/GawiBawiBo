@@ -61,19 +61,6 @@
         android:layout_marginTop="20dp"
         android:background="@color/blue"
         />
-
-
-    <android.widget.Button
-        android:id="@+id/end"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:text="끝내기"
-        android:textSize="30dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/red"
-        />
-
-
     </LinearLayout>
 
 
