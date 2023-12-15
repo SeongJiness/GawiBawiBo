@@ -19,10 +19,6 @@ public class MyApplication extends Application {
         mMediaPlayer.start();
     }
 
-    public boolean isMusicPlaying() {
-        return mMediaPlayer != null && mMediaPlayer.isPlaying();
-    }
-
     public MediaPlayer getMediaPlayer() {
         return mMediaPlayer;
     }
