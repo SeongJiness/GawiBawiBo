@@ -144,7 +144,7 @@ public class WinngRate extends AppCompatActivity {
         editor.putInt("draw", 0);
         editor.putInt("playerLose", 0);
         editor.putInt("match", 0);
-        editor.commit();
+        editor.apply();
         loadDataFromPreferences();
     }
 
@@ -193,4 +193,6 @@ public class WinngRate extends AppCompatActivity {
             winning_rate.setText(formattedWinRate);
         }
     }
+
+
 }
